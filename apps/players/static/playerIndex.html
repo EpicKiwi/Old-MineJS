@@ -10,7 +10,10 @@
 	</div>
 
 	<div id="tab-3-title" class="tab-title" ng-click="tab = 3" ng-class="{active: tab == 3}">
-		Banissements
+		Banissements de joueurs
+	</div>
+	<div id="tab-3-title" class="tab-title" ng-click="tab = 4" ng-class="{active: tab == 4}">
+		Banissements d'IP
 	</div>
 
 	<div class="separator"></div>
@@ -43,17 +46,30 @@
 			<h2>Joueurs sur la liste blanche</h2>
 			<p>Si vous avez activé la liste blanche dans la configuration, les joueurs qui sont séléctionnés en dessous serons les seuls à pouvoir acceder au serveur.</p>
 			<div class="big-selector">
-				<div class="row">Fonctionalité non implémentée</div>
+				<div class="row" ng-if="whiteList.length == 0">Aucun</div>
+				<div class="row" ng-repeat="player in whiteList"><img class="headIcon" src="https://minotar.net/helm/{{player.name}}/100.png" />{{player.name}}</div>
 			</div>
 		</div>
 	</div>
 
 	<div id="tab-3" ng-show="tab == 3" class="tab">
 		<div class="content">
-			<h2>Banissements</h2>
+			<h2>Banissements de joueurs</h2>
 			<p>Les joueurs inscris dans cette liste ne pourrons pas acceder au serveur.</p>
 			<div class="big-selector">
-				<div class="row">Fonctionalité non implémentée</div>
+				<div class="row" ng-if="bannedPlayers.length == 0">Aucun</div>
+				<div class="row" ng-repeat="player in bannedPlayers"><img class="headIcon" src="https://minotar.net/helm/{{player.name}}/100.png" />{{player.name}}</div>
+			</div>
+		</div>
+	</div>
+	
+	<div id="tab-4" ng-show="tab == 4" class="tab">
+		<div class="content">
+			<h2>Banissements d'IP</h2>
+			<p>Les joueurs se connectant depuis ces IPs seront refusés quelque soit leurs nom.</p>
+			<div class="big-selector">
+				<div class="row" ng-if="bannedIps.length == 0">Aucune</div>
+				<div class="row" ng-repeat="ip in bannedIps">{{ip.ip}}</div>
 			</div>
 		</div>
 	</div>

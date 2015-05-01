@@ -17,9 +17,19 @@ module.exports = function(appManager){
 	playersApp.script = "playersScript.js";
 
 	playersApp.onOpen = function(user){
+		user.socket.on("playersAppGetLists",function(){
+			playersApp.appManager.app.gameServer.loadConfig();
+			var lists = {};
+			lists.whiteList = playersApp.appManager.app.gameServer.whiteList;
+			lists.ops = playersApp.appManager.app.gameServer.ops;
+			lists.bannedPlayers = playersApp.appManager.app.gameServer.bannedPlayers;
+			lists.bannedIps = playersApp.appManager.app.gameServer.bannedIps;
+			user.socket.emit("playersAppGetLists",lists);
+		});
 	}
 
 	playersApp.onClose = function(user){
+		user.socket.removeAllListeners("playersAppGetLists");
 	}
 
 	return playersApp;

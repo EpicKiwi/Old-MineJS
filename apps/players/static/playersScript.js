@@ -1,5 +1,18 @@
 app.controllerProvider.register("playersAppController",function($scope,socket){
 	$scope.tab = 1;
+	$scope.whiteList = [];
+	$scope.bannedPlayers = [];
+	$scope.bannedIps = [];
+	$scope.ops = [];
+	
+	socket.emit("playersAppGetLists");
+	socket.on("playersAppGetLists",function(lists){
+		$scope.whiteList = lists.whiteList;
+		$scope.bannedPlayers = lists.bannedPlayers;
+		$scope.bannedIps = lists.bannedIps;
+		$scope.ops = lists.ops;
+		console.log($scope);
+	});
 });
 
 app.controllerProvider.register("onlinePlayersAppController",function($scope,socket){
