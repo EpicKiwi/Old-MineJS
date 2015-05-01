@@ -6,12 +6,19 @@
 	width: 85%;
 }
 
-#app-players .big-selector .row .headIcon
+#app-players .big-selector .row .headIcon, #app-players .big-selector .row .deleteIcon
 {
 	position: absolute;
 	top: 0;
 	left: 0;
 	height: 50px;
+}
+
+#app-players .big-selector .row input
+{
+	width: 75%;
+	line-height: 25px;
+	outline: none;
 }
 
 #app-players .tab-bottom-menu .headIcon
@@ -21,6 +28,22 @@
 	left: 0;
 	opacity: 0.8;
 	height: 100%;
+}
+
+#app-players .big-selector .row .deleteIcon
+{
+	width: 50px;
+	text-align: center;
+	opacity: 0;
+	transition: 0.3s all;
+	background-color: rgba(255, 0, 0, 0.5);
+	color: rgba(255, 255, 255, 0.8);
+	font-size: 30px;
+}
+
+#app-players .big-selector .row:hover .deleteIcon
+{
+	opacity: 1;
 }
 
 #app-players .tab-bottom-menu .playerName

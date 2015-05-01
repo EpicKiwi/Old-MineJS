@@ -17,7 +17,8 @@ module.exports = function(appManager){
 	playersApp.script = "playersScript.js";
 
 	playersApp.onOpen = function(user){
-		user.socket.on("playersAppGetLists",function(){
+		
+		function refreshConfig(){
 			playersApp.appManager.app.gameServer.loadConfig();
 			var lists = {};
 			lists.whiteList = playersApp.appManager.app.gameServer.whiteList;
@@ -25,7 +26,13 @@ module.exports = function(appManager){
 			lists.bannedPlayers = playersApp.appManager.app.gameServer.bannedPlayers;
 			lists.bannedIps = playersApp.appManager.app.gameServer.bannedIps;
 			user.socket.emit("playersAppGetLists",lists);
-		});
+		}
+		
+		user.socket.on("playersAppGetLists",function(){ refreshConfig() });
+		playersApp.appManager.app.gameServer.event.on("playerAddedWhitelist",function(){ refreshConfig(); });
+		playersApp.appManager.app.gameServer.event.on("playerRemovedWhitelist",function(){ refreshConfig(); });
+		playersApp.appManager.app.gameServer.event.on("playerBanned",function(){ refreshConfig(); });
+		playersApp.appManager.app.gameServer.event.on("playerUnbanned",function(){ refreshConfig(); });
 	}
 
 	playersApp.onClose = function(user){

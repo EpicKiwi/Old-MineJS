@@ -5,6 +5,14 @@ app.controllerProvider.register("playersAppController",function($scope,socket){
 	$scope.bannedIps = [];
 	$scope.ops = [];
 	
+	$scope.addWhitelist = function(player){
+		$scope.serverCommand("whitelist add "+player);
+	}
+	
+	$scope.remWhitelist = function(player){
+		$scope.serverCommand("whitelist remove "+player);
+	}
+	
 	socket.emit("playersAppGetLists");
 	socket.on("playersAppGetLists",function(lists){
 		$scope.whiteList = lists.whiteList;

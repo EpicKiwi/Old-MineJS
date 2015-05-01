@@ -47,7 +47,12 @@
 			<p>Si vous avez activé la liste blanche dans la configuration, les joueurs qui sont séléctionnés en dessous serons les seuls à pouvoir acceder au serveur.</p>
 			<div class="big-selector">
 				<div class="row" ng-if="whiteList.length == 0">Aucun</div>
-				<div class="row" ng-repeat="player in whiteList"><img class="headIcon" src="https://minotar.net/helm/{{player.name}}/100.png" />{{player.name}}</div>
+				<div class="row" ng-repeat="player in whiteList"><img class="headIcon" src="https://minotar.net/helm/{{player.name}}/100.png" />{{player.name}}
+				<div class="deleteIcon" ng-click="remWhitelist(player.name)"><i class="fi-minus"></i></div></div>
+				<div class="row" >
+				<img class="headIcon" src="/static/img/addPlayer.png" />
+				<input type="text" ng-model="newWhitelistPlayer"/>
+				<div class="button button-primary" ng-click="addWhitelist(newWhitelistPlayer)" >Ajouter a la liste blanche</div></div>
 			</div>
 		</div>
 	</div>
