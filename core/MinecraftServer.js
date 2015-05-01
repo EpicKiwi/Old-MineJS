@@ -507,7 +507,25 @@ var server = {
 				}
 			}
 			this.config = config;
+			this.whiteList = this.loadJson(this.folder+"/whitelist.json");
+			this.bannedPlayers =  this.loadJson(this.folder+"/banned-players.json");
+			this.bannedIps =  this.loadJson(this.folder+"/banned-ips.json");
+			this.ops =  this.loadJson(this.folder+"/ops.json");
 		}
+	},
+	
+	loadJson : function(file){
+			try
+			{
+				var rawFile = fs.readFileSync(file,{encoding:"UTF-8"});
+				return JSON.parse(rawFile);
+			}
+			catch(e)
+			{
+				console.error("Le fichier "+file+" n'existe pas");
+				console.trace(e);
+				return false;
+			}
 	}
 };
 
