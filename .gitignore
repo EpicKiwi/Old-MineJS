@@ -31,3 +31,5 @@ gamefiles/*
 
 #config
 config/*
+
+launch.json
