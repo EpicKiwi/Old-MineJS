@@ -351,6 +351,7 @@ var server = {
 	*/
 	advancedEventDispacher: function(){
 		this.event.on("logInfo",function(message){
+			console.info("Minecraft : "+message);
 			if(message.search(/Done \(.*\)! For help, type .*/i) != -1)
 			{
 				this.event.emit("ready");
@@ -368,6 +369,36 @@ var server = {
 				playerName = playerName.slice(0, playerName.length - 1);
 				this.onlinePlayers.splice(this.onlinePlayers.indexOf(playerName),1);
 				this.event.emit("playerDisconnect",playerName);
+			}
+			else if(message.search(/Added (.*) to the whitelist/i) != -1)
+			{
+				var playerName =  message.replace(/Added (.*) to the whitelist/i,"$1");
+				this.event.emit("playerAddedWhitelist",playerName);
+			}
+			else if(message.search(/Removed (.*) from the whitelist/i) != -1)
+			{
+				var playerName =  message.replace(/Removed (.*) to the whitelist/i,"$1");
+				this.event.emit("playerRemovedWhitelist",playerName);
+			}
+			else if(message.search(/Banned player (.*)/i) != -1)
+			{
+				var playerName =  message.replace(/Banned player (.*)/i,"$1");
+				this.event.emit("playerBanned",playerName);
+			}
+			else if(message.search(/Unbanned player (.*)/i) != -1)
+			{
+				var playerName =  message.replace(/Unbanned player (.*)/i,"$1");
+				this.event.emit("playerUnbanned",playerName);
+			}
+			else if(message.search(/Banned IP address (.*)/i) != -1)
+			{
+				var ip =  message.replace(/Banned IP address (.*)/i,"$1");
+				this.event.emit("ipBanned",ip);
+			}
+			else if(message.search(/Unanned IP address (.*)/i) != -1)
+			{
+				var ip =  message.replace(/Unanned IP address (.*)/i,"$1");
+				this.event.emit("ipUnanned",ip);
 			}
 		}.bind(this));
 
